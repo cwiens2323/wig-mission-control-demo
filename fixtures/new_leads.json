@@ -1,0 +1,41 @@
+{
+  "metric": "new_leads",
+  "items": [
+    {
+      "id": 3,
+      "metric_key": "new_leads",
+      "client_ref": "Lead 2201",
+      "summary": "New household inquiry",
+      "state": "open",
+      "owner": "Salesforce owner",
+      "opened_at": "2026-08-18 12:52:00+00:00",
+      "due_at": "2026-08-18 13:52:00+00:00",
+      "next_action": "Make first response",
+      "completed_at": null,
+      "trigger_type": "new_lead",
+      "source": "Salesforce sample",
+      "source_updated_at": "2026-08-18 13:37:00+00:00",
+      "extra": {},
+      "age_label": "11 hr"
+    },
+    {
+      "id": 4,
+      "metric_key": "new_leads",
+      "client_ref": "Lead 2194",
+      "summary": "Small business inquiry",
+      "state": "complete",
+      "owner": "Salesforce owner",
+      "opened_at": "2026-08-18 10:44:00+00:00",
+      "due_at": null,
+      "next_action": "Protection conversation scheduled",
+      "completed_at": "2026-08-18 11:24:00+00:00",
+      "trigger_type": "new_lead",
+      "source": "Salesforce sample",
+      "source_updated_at": "2026-08-18 13:37:00+00:00",
+      "extra": {
+        "response_minutes": 40
+      },
+      "age_label": "13 hr"
+    }
+  ]
+}

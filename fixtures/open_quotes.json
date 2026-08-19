@@ -1,0 +1,56 @@
+{
+  "metric": "open_quotes",
+  "items": [
+    {
+      "id": 5,
+      "metric_key": "open_quotes",
+      "client_ref": "Client 1308",
+      "summary": "Home and auto quote",
+      "state": "open",
+      "owner": "Quote team",
+      "opened_at": "2026-08-13 13:44:00+00:00",
+      "due_at": "2026-08-18 10:44:00+00:00",
+      "next_action": "Confirm client decision and schedule next step",
+      "completed_at": null,
+      "trigger_type": null,
+      "source": "PolicyCenter sample",
+      "source_updated_at": "2026-08-18 13:32:00+00:00",
+      "extra": {},
+      "age_label": "5 days"
+    },
+    {
+      "id": 6,
+      "metric_key": "open_quotes",
+      "client_ref": "Client 1266",
+      "summary": "Life coverage quote",
+      "state": "open",
+      "owner": "Advisor team",
+      "opened_at": "2026-08-16 13:44:00+00:00",
+      "due_at": "2026-08-18 17:44:00+00:00",
+      "next_action": "Follow up today at 3:00 PM",
+      "completed_at": null,
+      "trigger_type": null,
+      "source": "Pilot CSV",
+      "source_updated_at": "2026-08-18 13:24:00+00:00",
+      "extra": {},
+      "age_label": "2 days"
+    },
+    {
+      "id": 7,
+      "metric_key": "open_quotes",
+      "client_ref": "Client 1210",
+      "summary": "Umbrella coverage quote",
+      "state": "open",
+      "owner": "Quote team",
+      "opened_at": "2026-08-17 13:44:00+00:00",
+      "due_at": null,
+      "next_action": null,
+      "completed_at": null,
+      "trigger_type": null,
+      "source": "Pilot CSV",
+      "source_updated_at": "2026-08-18 13:24:00+00:00",
+      "extra": {},
+      "age_label": "34 hr"
+    }
+  ]
+}

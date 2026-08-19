@@ -1,0 +1,8 @@
+# Exclude local/editor artifacts
+.DS_Store
+Thumbs.db
+*.db
+*.sqlite*
+.env
+.hermes/
+__pycache__/

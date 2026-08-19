@@ -1,0 +1,39 @@
+{
+  "metric": "assessments",
+  "items": [
+    {
+      "id": 8,
+      "metric_key": "assessments",
+      "client_ref": "Client 1350",
+      "summary": "Client Protection Assessment",
+      "state": "open",
+      "owner": "Advisor team",
+      "opened_at": "2026-08-16 13:44:00+00:00",
+      "due_at": "2026-08-19 13:44:00+00:00",
+      "next_action": "Complete protection/gap check",
+      "completed_at": null,
+      "trigger_type": "new_lead",
+      "source": "Pilot CSV",
+      "source_updated_at": "2026-08-18 13:24:00+00:00",
+      "extra": {},
+      "age_label": "2 days"
+    },
+    {
+      "id": 9,
+      "metric_key": "assessments",
+      "client_ref": "Client 1331",
+      "summary": "Client Protection Assessment",
+      "state": "complete",
+      "owner": "Advisor team",
+      "opened_at": "2026-08-15 13:44:00+00:00",
+      "due_at": null,
+      "next_action": "Seed recorded for future conversation",
+      "completed_at": "2026-08-17 13:44:00+00:00",
+      "trigger_type": "new_lead",
+      "source": "Pilot CSV",
+      "source_updated_at": "2026-08-18 13:24:00+00:00",
+      "extra": {},
+      "age_label": "3 days"
+    }
+  ]
+}

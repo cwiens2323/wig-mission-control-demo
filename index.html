@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#153b33">
+  <meta name="description" content="WIG Mission Control internal office-health dashboard">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>WIG Mission Control</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="#dashboard" aria-label="WIG Mission Control home">
+      <span class="brand-mark">WIG</span>
+      <span><strong>Mission Control</strong><small>Office health · client commitments · one weekly focus</small></span>
+    </a>
+    <div class="header-actions">
+      <span class="pilot-pill">PUBLIC DEMO · SYNTHETIC DATA</span>
+      <button id="refresh-btn" class="icon-btn" type="button">Refresh</button>
+      <button id="tv-btn" class="icon-btn" type="button">Open TV view</button>
+    </div>
+  </header>
+
+  <nav class="main-nav" aria-label="Mission Control views">
+    <button data-view="dashboard" class="active">Office Health</button>
+    <button data-view="closeout">Daily Closeout</button>
+    <button data-view="meeting">Tuesday Meeting</button>
+    <button data-view="drilldown">Manager Drill-Down</button>
+    <button data-view="settings">Standards & Settings</button>
+  </nav>
+
+  <main>
+    <section id="view-dashboard" class="view active" aria-labelledby="dashboard-title">
+      <div class="page-heading">
+        <div><p class="eyebrow">Every Client. Every Interaction. Every Time.</p><h1 id="dashboard-title">Office Health</h1></div>
+        <div class="freshness"><span class="live-dot"></span> DEMO SNAPSHOT <span id="dashboard-updated">Updating…</span></div>
+      </div>
+      <div class="philosophy" aria-label="WIG philosophy">
+        <span>Stay Active.</span><span>Plant the Seeds.</span><span>Give Great Advice.</span><strong>Growth Follows.</strong>
+      </div>
+      <div id="dashboard-tiles" class="tile-grid" aria-live="polite"></div>
+      <div id="focus-strip" class="focus-strip"></div>
+      <p class="source-note">Automated/imported data stays separate from the 90-second closeout. Every tile shows source and freshness.</p>
+    </section>
+
+    <section id="view-closeout" class="view" aria-labelledby="closeout-title">
+      <div class="narrow-shell">
+        <div class="page-heading">
+          <div><p class="eyebrow">90-second daily rhythm</p><h1 id="closeout-title">Daily Closeout</h1></div>
+          <span class="time-promise">about 90 sec</span>
+        </div>
+        <div class="decision-note"><strong>Public synthetic demo.</strong> Entries are saved only in this browser and are not shared with WIG or other reviewers.</div>
+        <form id="closeout-form">
+          <div class="form-row two-col">
+            <label>Your name or team<input name="staff_label" maxlength="80" value="Pilot teammate" required></label>
+            <label>Date<input name="entry_date" type="date" required></label>
+          </div>
+          <div id="count-fields" class="count-grid"></div>
+          <fieldset class="waiting-field">
+            <legend>Any client waiting beyond the expected response time?</legend>
+            <p>New leads: 1 hour · Other client responses: 24 hours</p>
+            <div class="binary-control">
+              <label><input type="radio" name="waiting_yesno" value="0" checked><span>No</span></label>
+              <label><input type="radio" name="waiting_yesno" value="1"><span>Yes</span></label>
+            </div>
+            <label id="waiting-count-wrap" class="hidden">How many?<input name="client_waiting_exception" type="number" min="1" value="1"></label>
+          </fieldset>
+          <fieldset>
+            <legend>Capacity confidence for tomorrow</legend>
+            <p>This is a help signal, not a performance score.</p>
+            <div class="capacity-control">
+              <label class="green"><input type="radio" name="capacity" value="green" checked><span>Green<small>Ready</small></span></label>
+              <label class="yellow"><input type="radio" name="capacity" value="yellow"><span>Yellow<small>Need a check-in</small></span></label>
+              <label class="red"><input type="radio" name="capacity" value="red"><span>Red<small>Need help</small></span></label>
+            </div>
+          </fieldset>
+          <label>Biggest bottleneck <span class="optional">optional · one line</span><input name="bottleneck" maxlength="280" placeholder="What could stop a client commitment from moving forward?"></label>
+          <button class="primary wide" type="submit">Complete daily closeout</button>
+          <p id="closeout-message" class="form-message" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="view-meeting" class="view" aria-labelledby="meeting-title">
+      <div class="page-heading"><div><p class="eyebrow">Tuesday · 10:30–11:00</p><h1 id="meeting-title">One disciplined 30-minute meeting</h1></div><span class="meeting-clock">30:00</span></div>
+      <div class="meeting-layout">
+        <aside class="agenda-card">
+          <h2>Standing agenda</h2>
+          <ol>
+            <li><b>3 min</b> Win or seed story</li>
+            <li><b>4 min</b> Last Office Focus</li>
+            <li><b>5 min</b> Scan office health</li>
+            <li><b>10 min</b> Yellow/red exceptions</li>
+            <li><b>4 min</b> Growth through service</li>
+            <li><b>4 min</b> Choose exactly one focus</li>
+          </ol>
+          <p>Scan green. Discuss exceptions and meaningful wins—not every number.</p>
+        </aside>
+        <div class="meeting-main">
+          <article id="previous-focus" class="meeting-panel"></article>
+          <article class="meeting-panel"><div class="panel-heading"><h2>Exceptions to discuss</h2><span>owner · action · due date</span></div><div id="meeting-exceptions" class="exception-list"></div></article>
+          <article class="meeting-panel focus-form-panel">
+            <div class="panel-heading"><div><p class="eyebrow">Leave with one commitment</p><h2>New Office Focus</h2></div><span class="one-only">ONE ONLY</span></div>
+            <form id="focus-form" class="focus-form">
+              <label>What single improvement matters most?<input name="title" maxlength="180" required placeholder="Plain-language outcome"></label>
+              <div class="form-row two-col"><label>Owner<input name="owner" maxlength="80" required></label><label>Due date<input name="due_date" type="date" required></label></div>
+              <input name="week_of" type="hidden">
+              <button class="primary" type="submit">Set this week’s Office Focus</button>
+              <p id="focus-message" class="form-message" role="status"></p>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-drilldown" class="view" aria-labelledby="drill-title">
+      <div class="page-heading"><div><p class="eyebrow">Coaching and workflow management</p><h1 id="drill-title">Manager Drill-Down</h1></div></div>
+      <div class="drill-toolbar" id="drill-tabs">
+        <button data-metric="clients_waiting">Clients Waiting</button>
+        <button data-metric="new_leads">New Leads</button>
+        <button data-metric="open_quotes" class="active">Open Quotes</button>
+        <button data-metric="assessments">Client Protection</button>
+      </div>
+      <div id="drill-summary" class="decision-note"></div>
+      <div id="drill-items" class="work-list"></div>
+    </section>
+
+    <section id="view-settings" class="view" aria-labelledby="settings-title">
+      <div class="page-heading"><div><p class="eyebrow">Configuration, not hidden assumptions</p><h1 id="settings-title">Standards & Settings</h1></div></div>
+      <div class="decision-note"><strong>TBD stays TBD.</strong> Draft values support the pilot but are not presented as approved WIG standards. Claims Support remains disabled.</div>
+      <div id="settings-list" class="settings-list"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>

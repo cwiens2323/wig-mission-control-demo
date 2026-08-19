@@ -1,0 +1,154 @@
+{
+  "generated_at": "2026-08-19T00:28:07Z",
+  "mode": "pilot",
+  "data_notice": "Synthetic pilot data \u2014 not live client records",
+  "tiles": [
+    {
+      "key": "clients_waiting",
+      "label": "Clients Waiting",
+      "state": "red",
+      "headline": "2",
+      "detail": "2 overdue \u00b7 0 approaching 24h",
+      "action": "Respond now",
+      "last_updated": "2026-08-18 13:37:00+00:00",
+      "source": "Imported work items",
+      "stats": {
+        "open": 2,
+        "approaching": 0,
+        "overdue": 2,
+        "standard_hours": 24.0
+      }
+    },
+    {
+      "key": "new_leads",
+      "label": "New Leads",
+      "state": "red",
+      "headline": "1",
+      "detail": "1 missed \u00b7 0 approaching 1h",
+      "action": "Make first response",
+      "last_updated": "2026-08-18 13:37:00+00:00",
+      "source": "Salesforce-ready work items",
+      "stats": {
+        "open": 1,
+        "approaching": 0,
+        "missed": 1,
+        "standard_minutes": 60.0
+      }
+    },
+    {
+      "key": "open_quotes",
+      "label": "Open Quotes",
+      "state": "red",
+      "headline": "3",
+      "detail": "0 due today \u00b7 2 overdue \u00b7 1 missing next step",
+      "action": "Set/complete next follow-up",
+      "last_updated": "2026-08-18 13:37:00+00:00",
+      "source": "PolicyCenter/CSV-ready",
+      "stats": {
+        "total": 3,
+        "due_today": 0,
+        "overdue": 2,
+        "missing_followup": 1
+      }
+    },
+    {
+      "key": "assessments",
+      "label": "Client Protection",
+      "state": "yellow",
+      "headline": "50%",
+      "detail": "2 opportunities \u00b7 1 complete \u00b7 0 overdue",
+      "action": "Deadline remains TBD",
+      "last_updated": "2026-08-18 13:37:00+00:00",
+      "source": "Trigger/import-ready",
+      "stats": {
+        "opportunities": 2,
+        "completed": 1,
+        "completion_rate": 50,
+        "due_today": 1,
+        "overdue": 0,
+        "deadline_hours": null
+      }
+    },
+    {
+      "key": "seeds",
+      "label": "Relationship Seeds",
+      "state": "green",
+      "headline": "5",
+      "detail": "Additional ways to help identified this week",
+      "action": "Share a helpful seed story",
+      "last_updated": "2026-08-18T11:44:00Z",
+      "source": "Daily closeout / event import",
+      "stats": {
+        "week_count": 5,
+        "target": null
+      }
+    },
+    {
+      "key": "reputation",
+      "label": "Reviews & Referrals",
+      "state": "green",
+      "headline": "2 + 1",
+      "detail": "3 requests \u00b7 2 reviews \u00b7 1 referrals \u00b7 4.9 \u2605 steady",
+      "action": "Thank clients and follow up authentically",
+      "last_updated": "2026-08-18T11:44:00Z",
+      "source": "Manual/API-ready metrics",
+      "stats": {
+        "review_requests": 3,
+        "reviews_received": 2,
+        "referrals": 1,
+        "average_rating": 4.9,
+        "rating_trend": "steady"
+      }
+    },
+    {
+      "key": "capacity",
+      "label": "Capacity",
+      "state": "yellow",
+      "headline": "Yellow",
+      "detail": "1 closeout(s) \u00b7 1 bottleneck note(s)",
+      "action": "Offer help and rebalance",
+      "last_updated": "2026-08-18T11:44:00Z",
+      "source": "90-second closeout",
+      "stats": {
+        "responses": 1,
+        "bottlenecks": [
+          "One overdue quote needs a confirmed next step."
+        ]
+      }
+    },
+    {
+      "key": "focus",
+      "label": "Office Focus",
+      "state": "yellow",
+      "headline": "Action",
+      "detail": "Every open quote has a scheduled next follow-up",
+      "action": "Complete or confirm next action",
+      "last_updated": "2026-08-18T13:44:00Z",
+      "source": "Tuesday meeting",
+      "stats": {
+        "focus": {
+          "id": 1,
+          "week_of": "2026-08-17",
+          "title": "Every open quote has a scheduled next follow-up",
+          "owner": "Office manager",
+          "due_date": "2026-08-24",
+          "status": "open",
+          "completion_note": null,
+          "created_at": "2026-08-18T13:44:00Z",
+          "updated_at": "2026-08-18T13:44:00Z"
+        }
+      }
+    }
+  ],
+  "focus": {
+    "id": 1,
+    "week_of": "2026-08-17",
+    "title": "Every open quote has a scheduled next follow-up",
+    "owner": "Office manager",
+    "due_date": "2026-08-24",
+    "status": "open",
+    "completion_note": null,
+    "created_at": "2026-08-18T13:44:00Z",
+    "updated_at": "2026-08-18T13:44:00Z"
+  }
+}

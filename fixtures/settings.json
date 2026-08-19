@@ -1,0 +1,180 @@
+{
+  "items": [
+    {
+      "key": "seeds_weekly_target",
+      "category": "growth",
+      "label": "Weekly relationship/protection seeds target",
+      "unit": "count",
+      "rationale": "Decision needed; avoid pressure-selling behavior.",
+      "decision_status": "TBD",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": null
+    },
+    {
+      "key": "assessment_deadline_hours",
+      "category": "protection",
+      "label": "Assessment completion deadline",
+      "unit": "hours",
+      "rationale": "Decision needed; no WIG standard has been approved.",
+      "decision_status": "TBD",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": null
+    },
+    {
+      "key": "assessment_target_completion_rate",
+      "category": "protection",
+      "label": "Assessment completion target",
+      "unit": "percent",
+      "rationale": "Decision needed.",
+      "decision_status": "TBD",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": null
+    },
+    {
+      "key": "assessment_trigger_new_lead",
+      "category": "protection",
+      "label": "New lead assessment trigger",
+      "unit": "enabled",
+      "rationale": "Included in the working handoff.",
+      "decision_status": "draft",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": true
+    },
+    {
+      "key": "assessment_trigger_policy_change",
+      "category": "protection",
+      "label": "Policy change assessment trigger",
+      "unit": "enabled",
+      "rationale": "Decision needed; debated and not mandatory.",
+      "decision_status": "TBD",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": false
+    },
+    {
+      "key": "google_business_activity_enabled",
+      "category": "reputation",
+      "label": "Google Business Profile activity",
+      "unit": "enabled",
+      "rationale": "Decision needed: Mission Control or separate marketing view.",
+      "decision_status": "TBD",
+      "enabled": false,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": false
+    },
+    {
+      "key": "review_requests_weekly_target",
+      "category": "reputation",
+      "label": "Weekly authentic review-request target",
+      "unit": "count",
+      "rationale": "Decision needed.",
+      "decision_status": "TBD",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": null
+    },
+    {
+      "key": "referrals_weekly_target",
+      "category": "reputation",
+      "label": "Weekly referrals target",
+      "unit": "count",
+      "rationale": "Decision needed.",
+      "decision_status": "TBD",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": null
+    },
+    {
+      "key": "claims_support_enabled",
+      "category": "service",
+      "label": "Claims Support KPI",
+      "unit": "enabled",
+      "rationale": "Definition not finalized; disabled until WIG agrees.",
+      "decision_status": "TBD",
+      "enabled": false,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": false
+    },
+    {
+      "key": "clients_waiting_warning_hours",
+      "category": "service",
+      "label": "Client waiting warning",
+      "unit": "hours",
+      "rationale": "Draft early-warning point before the confirmed 24-hour maximum.",
+      "decision_status": "draft",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": 18
+    },
+    {
+      "key": "clients_waiting_standard_hours",
+      "category": "service",
+      "label": "Maximum client response time",
+      "unit": "hours",
+      "rationale": "Confirmed WIG client response standard.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": 24
+    },
+    {
+      "key": "new_lead_response_minutes",
+      "category": "service",
+      "label": "New lead first-response standard",
+      "unit": "minutes",
+      "rationale": "Confirmed WIG standard.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": 60
+    },
+    {
+      "key": "new_lead_warning_minutes",
+      "category": "service",
+      "label": "New lead warning point",
+      "unit": "minutes",
+      "rationale": "Draft coaching signal before the 60-minute standard.",
+      "decision_status": "draft",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": 45
+    },
+    {
+      "key": "client_reviews_shared_dashboard",
+      "category": "workflow",
+      "label": "Client reviews on shared dashboard",
+      "unit": "enabled",
+      "rationale": "Decision needed, including receptionist ownership display.",
+      "decision_status": "TBD",
+      "enabled": false,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": false
+    },
+    {
+      "key": "open_quotes_red_overdue_count",
+      "category": "workflow",
+      "label": "Open Quotes red threshold",
+      "unit": "overdue items",
+      "rationale": "Draft; any overdue quote currently turns the tile red.",
+      "decision_status": "draft",
+      "enabled": true,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": 1
+    },
+    {
+      "key": "policy_changes_module_enabled",
+      "category": "workflow",
+      "label": "Policy changes module",
+      "unit": "enabled",
+      "rationale": "Out of MVP unless WIG confirms it.",
+      "decision_status": "TBD",
+      "enabled": false,
+      "updated_at": "2026-08-18T13:44:00Z",
+      "value": false
+    }
+  ]
+}

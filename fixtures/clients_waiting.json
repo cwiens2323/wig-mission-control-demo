@@ -1,0 +1,39 @@
+{
+  "metric": "clients_waiting",
+  "items": [
+    {
+      "id": 1,
+      "metric_key": "clients_waiting",
+      "client_ref": "Client 1042",
+      "summary": "Coverage question awaiting response",
+      "state": "open",
+      "owner": "Service team",
+      "opened_at": "2026-08-17 11:44:00+00:00",
+      "due_at": "2026-08-18 11:44:00+00:00",
+      "next_action": "Call client and confirm advice",
+      "completed_at": null,
+      "trigger_type": null,
+      "source": "Pilot CSV",
+      "source_updated_at": "2026-08-18 13:26:00+00:00",
+      "extra": {},
+      "age_label": "36 hr"
+    },
+    {
+      "id": 2,
+      "metric_key": "clients_waiting",
+      "client_ref": "Client 1187",
+      "summary": "Document clarification requested",
+      "state": "open",
+      "owner": "Advisor team",
+      "opened_at": "2026-08-17 18:44:00+00:00",
+      "due_at": "2026-08-18 18:44:00+00:00",
+      "next_action": "Send clarification before noon",
+      "completed_at": null,
+      "trigger_type": null,
+      "source": "Pilot CSV",
+      "source_updated_at": "2026-08-18 13:26:00+00:00",
+      "extra": {},
+      "age_label": "29 hr"
+    }
+  ]
+}
