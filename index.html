@@ -27,6 +27,7 @@
 
   <nav class="main-nav" aria-label="Mission Control views">
     <button data-view="dashboard" class="active">Office Health</button>
+    <button data-view="pipeline">Sales Pipeline</button>
     <button data-view="closeout">Daily Closeout</button>
     <button data-view="meeting">Tuesday Meeting</button>
     <button data-view="drilldown">Manager Drill-Down</button>
@@ -52,6 +53,58 @@
         </div>
       </details>
       <p class="source-note">Automated/imported data stays separate from the 90-second closeout. Every tile shows source and freshness.</p>
+    </section>
+
+    <section id="view-pipeline" class="view" aria-labelledby="pipeline-title">
+      <div class="page-heading">
+        <div><p class="eyebrow">First name only · no Salesforce connection</p><h1 id="pipeline-title">Sales Pipeline</h1></div>
+        <span class="time-promise">1h response · 48h quote follow-up</span>
+      </div>
+      <div class="decision-note"><strong>Public synthetic demo.</strong> Pipeline changes stay only in this browser and are not shared. Do not enter surnames, contact details, policy information, or other identifying data.</div>
+      <div class="pipeline-layout">
+        <form id="lead-form" class="pipeline-form">
+          <input name="lead_id" type="hidden">
+          <div class="panel-heading"><div><p class="eyebrow">Add or update an opportunity</p><h2>Lead details</h2></div><span>FIRST NAME ONLY</span></div>
+          <div class="form-row two-col">
+            <label>First name only<input name="first_name" maxlength="40" autocomplete="off" required placeholder="Synthetic example: Jordan"></label>
+            <label>Source<select name="source" required><option>Phone</option><option>Website</option><option>Referral</option><option>Walk-in</option><option>Other</option></select></label>
+          </div>
+          <div class="form-row two-col">
+            <label>Received<input name="received_at" type="datetime-local" required></label>
+            <label>Owner / team<input name="owner" maxlength="60" required placeholder="Advisor team"></label>
+          </div>
+          <label>Sales stage<select name="stage" required>
+            <option value="new_received">New / received</option>
+            <option value="first_response">First response made</option>
+            <option value="discovery_cpa">Discovery / CPA</option>
+            <option value="quote_in_progress">Quote in progress</option>
+            <option value="quote_delivered">Quote delivered</option>
+            <option value="follow_up">Follow-up</option>
+            <option value="waiting">Waiting</option>
+            <option value="resolved">Resolved</option>
+          </select></label>
+          <label>Quote delivered at <span class="optional">required for quote follow-up stages</span><input name="quote_delivered_at" type="datetime-local"></label>
+          <div class="form-row two-col">
+            <label>Next action<input name="next_action" maxlength="140" required placeholder="Specific client-facing commitment"></label>
+            <label>Due date and time<input name="due_at" type="datetime-local" required><small id="due-standard-note"></small></label>
+          </div>
+          <fieldset class="cpa-checklist">
+            <legend>CPA and quote milestones</legend>
+            <p>Discovery happens while gathering quote information. Relevant advice is presented before acceptance; the formal summary follows acceptance.</p>
+            <label><input name="cpa_discovery_complete" type="checkbox"><span>CPA discovery complete</span></label>
+            <label><input name="recommendations_presented" type="checkbox"><span>Recommendations presented</span></label>
+            <label class="quote-decision">Quote decision<select name="quote_decision"><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="declined">Declined</option></select></label>
+            <label><input name="cpa_summary_delivered" type="checkbox"><span>CPA summary delivered</span></label>
+          </fieldset>
+          <div class="pipeline-actions"><button class="primary" type="submit">Save opportunity</button><button id="lead-reset" class="secondary" type="button">Clear form</button></div>
+          <p id="lead-message" class="form-message" role="status"></p>
+        </form>
+        <div class="pipeline-board">
+          <div class="panel-heading"><div><p class="eyebrow">Exceptions first</p><h2>Active opportunities</h2></div><span id="pipeline-count">0 ACTIVE</span></div>
+          <div class="standards-strip"><span><b>1 hour</b> first response</span><span><b>48 hours</b> quote follow-up</span><span><b>3 years</b> client review</span><span><b>Same day</b> policy changes</span><span><b>1 month</b> claims follow-up</span></div>
+          <div id="pipeline-items" class="pipeline-items" aria-live="polite"></div>
+        </div>
+      </div>
     </section>
 
     <section id="view-closeout" class="view" aria-labelledby="closeout-title">

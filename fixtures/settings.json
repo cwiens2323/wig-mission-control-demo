@@ -14,13 +14,13 @@
     {
       "key": "assessment_deadline_hours",
       "category": "protection",
-      "label": "Assessment completion deadline",
-      "unit": "hours",
-      "rationale": "Decision needed; no WIG standard has been approved.",
-      "decision_status": "TBD",
+      "label": "CPA completion point",
+      "unit": "workflow milestone",
+      "rationale": "Complete discovery while gathering quote information; present relevant recommendations before acceptance; deliver the formal summary after acceptance.",
+      "decision_status": "confirmed",
       "enabled": true,
-      "updated_at": "2026-08-18T13:44:00Z",
-      "value": null
+      "updated_at": "2026-08-19T12:00:00Z",
+      "value": "discovery_before_quote; summary_after_acceptance"
     },
     {
       "key": "assessment_target_completion_rate",
@@ -38,10 +38,10 @@
       "category": "protection",
       "label": "New lead assessment trigger",
       "unit": "enabled",
-      "rationale": "Included in the working handoff.",
-      "decision_status": "draft",
+      "rationale": "Every new lead follows the CPA discovery workflow.",
+      "decision_status": "confirmed",
       "enabled": true,
-      "updated_at": "2026-08-18T13:44:00Z",
+      "updated_at": "2026-08-19T12:00:00Z",
       "value": true
     },
     {
@@ -170,11 +170,55 @@
       "category": "workflow",
       "label": "Policy changes module",
       "unit": "enabled",
-      "rationale": "Out of MVP unless WIG confirms it.",
-      "decision_status": "TBD",
-      "enabled": false,
-      "updated_at": "2026-08-18T13:44:00Z",
-      "value": false
+      "rationale": "Policy changes are handled the same day.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-19T12:00:00Z",
+      "value": true
+    },
+    {
+      "key": "quote_followup_hours",
+      "category": "workflow",
+      "label": "Quote follow-up",
+      "unit": "hours",
+      "rationale": "Follow up within 48 hours after quote delivery.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-19T12:00:00Z",
+      "value": 48
+    },
+    {
+      "key": "client_review_months",
+      "category": "relationship",
+      "label": "Client review cadence",
+      "unit": "months",
+      "rationale": "Complete a client review once every three years.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-19T12:00:00Z",
+      "value": 36
+    },
+    {
+      "key": "policy_change_same_day",
+      "category": "workflow",
+      "label": "Policy change completion",
+      "unit": "same day",
+      "rationale": "Policy changes are handled the same day; after-hours timing is not measured.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-19T12:00:00Z",
+      "value": true
+    },
+    {
+      "key": "claims_followup_days",
+      "category": "service",
+      "label": "Claims follow-up",
+      "unit": "days",
+      "rationale": "Follow up one month after the claim.",
+      "decision_status": "confirmed",
+      "enabled": true,
+      "updated_at": "2026-08-19T12:00:00Z",
+      "value": 30
     }
   ]
 }

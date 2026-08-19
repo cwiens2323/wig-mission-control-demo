@@ -55,7 +55,7 @@ class AuditAcceptanceTests(unittest.TestCase):
 
     def test_service_worker_cache_is_bumped_for_audit_release(self):
         sw = (ROOT / "service-worker.js").read_text(encoding="utf-8")
-        self.assertIn("public-demo-v3-audit", sw)
+        self.assertIn("public-demo-v10-sales-workflow", sw)
 
 
 if __name__ == "__main__":

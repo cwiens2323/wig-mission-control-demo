@@ -18,6 +18,8 @@ Implemented against **WIG Mission Control Public Demo Audit — KEEP / CHANGE / 
 - Made Tuesday Meeting a one-screen facilitator flow with prior focus, live exceptions, Growth Through Service, exactly one new focus, and Office Focus history.
 - Grouped settings as **Approved WIG Standards**, **Draft / Pilot**, and **TBD — Decision Required**.
 - Added browser-local pilot feedback.
+- Added a browser-local Sales Pipeline using first names only, eight approved workflow stages, owner/next action/due date, exception-first sorting, and four CPA/quote milestones.
+- Confirmed the approved timing settings: one-hour lead response, 24-hour client response, 48-hour quote follow-up, three-year client review, same-day policy changes, and one-month claims follow-up. No after-hours timer is used.
 - Bumped the service-worker cache for this release.
 
 ## Public-demo assumptions
