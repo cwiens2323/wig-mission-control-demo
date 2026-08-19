@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#153b33">
-  <meta name="description" content="WIG Mission Control internal office-health dashboard">
+  <meta name="description" content="Public synthetic-data review demo for WIG Mission Control">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>WIG Mission Control</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -43,6 +44,13 @@
       </div>
       <div id="dashboard-tiles" class="tile-grid" aria-live="polite"></div>
       <div id="focus-strip" class="focus-strip"></div>
+      <details class="metric-guide">
+        <summary>What do Client Protection Assessment and Planting a Seed mean?</summary>
+        <div class="guide-grid">
+          <p><strong>Client Protection Assessment:</strong> Completion means the protection check occurred—not that a sale occurred. Opportunities, completed checks, due today, and overdue remain separate.</p>
+          <div><p><strong>Planting a Seed:</strong> A seed is a helpful future need or conversation—not a sales quota.</p><ul class="seed-categories"><li>Protection</li><li>Financial</li><li>Business/Farm</li><li>Relationship</li><li>Reputation</li></ul></div>
+        </div>
+      </details>
       <p class="source-note">Automated/imported data stays separate from the 90-second closeout. Every tile shows source and freshness.</p>
     </section>
 
@@ -58,7 +66,6 @@
             <label>Your name or team<input name="staff_label" maxlength="80" value="Pilot teammate" required></label>
             <label>Date<input name="entry_date" type="date" required></label>
           </div>
-          <div id="count-fields" class="count-grid"></div>
           <fieldset class="waiting-field">
             <legend>Any client waiting beyond the expected response time?</legend>
             <p>New leads: 1 hour · Other client responses: 24 hours</p>
@@ -79,6 +86,7 @@
           </fieldset>
           <label>Biggest bottleneck <span class="optional">optional · one line</span><input name="bottleneck" maxlength="280" placeholder="What could stop a client commitment from moving forward?"></label>
           <button class="primary wide" type="submit">Complete daily closeout</button>
+          <p class="source-note">Submitting again for the same name/team and date corrects that day’s browser-local entry instead of creating a duplicate.</p>
           <p id="closeout-message" class="form-message" role="status"></p>
         </form>
       </div>
@@ -102,6 +110,7 @@
         <div class="meeting-main">
           <article id="previous-focus" class="meeting-panel"></article>
           <article class="meeting-panel"><div class="panel-heading"><h2>Exceptions to discuss</h2><span>owner · action · due date</span></div><div id="meeting-exceptions" class="exception-list"></div></article>
+          <article id="meeting-growth" class="meeting-panel"></article>
           <article class="meeting-panel focus-form-panel">
             <div class="panel-heading"><div><p class="eyebrow">Leave with one commitment</p><h2>New Office Focus</h2></div><span class="one-only">ONE ONLY</span></div>
             <form id="focus-form" class="focus-form">
@@ -112,6 +121,7 @@
               <p id="focus-message" class="form-message" role="status"></p>
             </form>
           </article>
+          <article class="meeting-panel"><div class="panel-heading"><div><p class="eyebrow">Learning over time</p><h2>Office Focus history</h2></div></div><div id="focus-history" class="focus-history"></div></article>
         </div>
       </div>
     </section>
@@ -122,7 +132,7 @@
         <button data-metric="clients_waiting">Clients Waiting</button>
         <button data-metric="new_leads">New Leads</button>
         <button data-metric="open_quotes" class="active">Open Quotes</button>
-        <button data-metric="assessments">Client Protection</button>
+        <button data-metric="assessments">Client Protection Assessment</button>
       </div>
       <div id="drill-summary" class="decision-note"></div>
       <div id="drill-items" class="work-list"></div>
@@ -131,7 +141,20 @@
     <section id="view-settings" class="view" aria-labelledby="settings-title">
       <div class="page-heading"><div><p class="eyebrow">Configuration, not hidden assumptions</p><h1 id="settings-title">Standards & Settings</h1></div></div>
       <div class="decision-note"><strong>TBD stays TBD.</strong> Draft values support the pilot but are not presented as approved WIG standards. Claims Support remains disabled.</div>
-      <div id="settings-list" class="settings-list"></div>
+      <div id="settings-list" class="settings-list">
+        <section class="settings-group"><h2>Approved WIG Standards</h2><div data-settings-status="confirmed"></div></section>
+        <section class="settings-group"><h2>Draft / Pilot</h2><div data-settings-status="draft"></div></section>
+        <section class="settings-group"><h2>TBD — Decision Required</h2><div data-settings-status="TBD"></div></section>
+      </div>
+      <article class="meeting-panel feedback-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Pilot learning</p><h2>Staff / manager feedback</h2></div><span>BROWSER-LOCAL</span></div>
+        <form id="feedback-form" class="feedback-form">
+          <label>Perspective<select name="role"><option>Staff</option><option>Manager</option><option>Reviewer</option></select></label>
+          <label>What helped or got in the way?<textarea name="note" maxlength="600" required placeholder="One practical observation or redline"></textarea></label>
+          <button class="primary" type="submit">Save pilot feedback</button>
+          <p id="feedback-message" class="form-message" role="status"></p>
+        </form>
+      </article>
     </section>
   </main>
 

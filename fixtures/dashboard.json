@@ -1,14 +1,14 @@
 {
   "generated_at": "2026-08-19T00:28:07Z",
   "mode": "pilot",
-  "data_notice": "Synthetic pilot data \u2014 not live client records",
+  "data_notice": "Synthetic pilot data — not live client records",
   "tiles": [
     {
       "key": "clients_waiting",
       "label": "Clients Waiting",
       "state": "red",
       "headline": "2",
-      "detail": "2 overdue \u00b7 0 approaching 24h",
+      "detail": "2 overdue · 0 approaching 24h",
       "action": "Respond now",
       "last_updated": "2026-08-18 13:37:00+00:00",
       "source": "Imported work items",
@@ -24,7 +24,7 @@
       "label": "New Leads",
       "state": "red",
       "headline": "1",
-      "detail": "1 missed \u00b7 0 approaching 1h",
+      "detail": "1 missed · 0 approaching 1h",
       "action": "Make first response",
       "last_updated": "2026-08-18 13:37:00+00:00",
       "source": "Salesforce-ready work items",
@@ -40,7 +40,7 @@
       "label": "Open Quotes",
       "state": "red",
       "headline": "3",
-      "detail": "0 due today \u00b7 2 overdue \u00b7 1 missing next step",
+      "detail": "3 total · 0 due today · 2 overdue · oldest 5 days · 1 missing next step",
       "action": "Set/complete next follow-up",
       "last_updated": "2026-08-18 13:37:00+00:00",
       "source": "PolicyCenter/CSV-ready",
@@ -48,15 +48,16 @@
         "total": 3,
         "due_today": 0,
         "overdue": 2,
-        "missing_followup": 1
+        "missing_followup": 1,
+        "oldest_age": "5 days"
       }
     },
     {
       "key": "assessments",
-      "label": "Client Protection",
+      "label": "Client Protection Assessment",
       "state": "yellow",
       "headline": "50%",
-      "detail": "2 opportunities \u00b7 1 complete \u00b7 0 overdue",
+      "detail": "2 opportunities · 1 assessment completed · 1 due today · 0 overdue",
       "action": "Deadline remains TBD",
       "last_updated": "2026-08-18 13:37:00+00:00",
       "source": "Trigger/import-ready",
@@ -70,34 +71,28 @@
       }
     },
     {
-      "key": "seeds",
-      "label": "Relationship Seeds",
+      "key": "growth_through_service",
+      "label": "Growth Through Service",
       "state": "green",
-      "headline": "5",
-      "detail": "Additional ways to help identified this week",
-      "action": "Share a helpful seed story",
+      "headline": "5 seeds",
+      "detail": "3 review requests · 2 reviews · 1 referral · 4.9 ★ steady",
+      "action": "Recognize service and follow up authentically",
       "last_updated": "2026-08-18T11:44:00Z",
-      "source": "Daily closeout / event import",
+      "source": "Daily closeout + manual/API-ready metrics",
       "stats": {
-        "week_count": 5,
-        "target": null
-      }
-    },
-    {
-      "key": "reputation",
-      "label": "Reviews & Referrals",
-      "state": "green",
-      "headline": "2 + 1",
-      "detail": "3 requests \u00b7 2 reviews \u00b7 1 referrals \u00b7 4.9 \u2605 steady",
-      "action": "Thank clients and follow up authentically",
-      "last_updated": "2026-08-18T11:44:00Z",
-      "source": "Manual/API-ready metrics",
-      "stats": {
+        "seeds": 5,
         "review_requests": 3,
         "reviews_received": 2,
         "referrals": 1,
         "average_rating": 4.9,
-        "rating_trend": "steady"
+        "rating_trend": "steady",
+        "seed_categories": {
+          "Protection": 2,
+          "Financial": 1,
+          "Business/Farm": 0,
+          "Relationship": 1,
+          "Reputation": 1
+        }
       }
     },
     {
@@ -105,7 +100,7 @@
       "label": "Capacity",
       "state": "yellow",
       "headline": "Yellow",
-      "detail": "1 closeout(s) \u00b7 1 bottleneck note(s)",
+      "detail": "1 closeout(s) · 1 bottleneck note(s)",
       "action": "Offer help and rebalance",
       "last_updated": "2026-08-18T11:44:00Z",
       "source": "90-second closeout",
