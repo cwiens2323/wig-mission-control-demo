@@ -11,6 +11,7 @@ const PIPELINE_STAGES = {
   waiting: 'Waiting',
   resolved: 'Resolved'
 };
+const PIPELINE_OWNERS = ['Chad', 'Jeff', 'Suzanne', 'Paul', 'Andrea', 'Nicole'];
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const esc = (value = '') => String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
@@ -19,7 +20,10 @@ const monday = (date = new Date()) => { const d = new Date(date); d.setDate(d.ge
 const addDays = (iso, days) => { const d = new Date(`${iso}T12:00:00`); d.setDate(d.getDate() + days); return d.toISOString().slice(0, 10); };
 const localDateTime = value => { const d = value ? new Date(value) : new Date(); const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return local.toISOString().slice(0, 16); };
 const plusHours = (value, hours) => localDateTime(new Date(value).getTime() + hours * 3600000);
-const validFirstName = value => /^[A-Za-zÀ-ÖØ-öø-ÿ'’-]+$/.test(String(value || '').trim());
+const validClientName = value => {
+  const name = String(value || '').trim();
+  return name.length <= 100 && /\p{L}/u.test(name) && /^[\p{L}\p{M}.'’ -]+$/u.test(name);
+};
 function validDate(value) {
   if (value instanceof Date) return !Number.isNaN(value.getTime());
   if (typeof value !== 'string') return false;
@@ -148,13 +152,14 @@ function pipelineSeed() {
   const now = Date.now();
   const samDeliveredAt = new Date(now - 50 * 3600000).toISOString();
   return [
-    {id: 'demo-jordan', first_name: 'Jordan', source: 'Website', received_at: new Date(now - 25 * 60000).toISOString(), owner: 'Advisor team', stage: 'new_received', next_action: 'Make first response', due_at: new Date(now + 35 * 60000).toISOString(), quote_delivered_at: null, cpa_discovery_complete: false, recommendations_presented: false, quote_decision: 'pending', cpa_summary_delivered: false, schema_version: 2, updated_at: new Date().toISOString()},
-    {id: 'demo-sam', first_name: 'Sam', source: 'Referral', received_at: new Date(now - 3 * 86400000).toISOString(), owner: 'Quote team', stage: 'quote_delivered', next_action: 'Follow up on quote questions', due_at: new Date(now - 2 * 3600000).toISOString(), quote_delivered_at: samDeliveredAt, cpa_discovery_complete: true, recommendations_presented: true, quote_decision: 'pending', cpa_summary_delivered: false, schema_version: 2, updated_at: new Date().toISOString()}
+    {id: 'demo-jordan', client_name: 'Jordan Miller', source: 'Website', received_at: new Date(now - 25 * 60000).toISOString(), owner: 'Chad', stage: 'new_received', next_action: 'Make first response', due_at: new Date(now + 35 * 60000).toISOString(), quote_delivered_at: null, cpa_discovery_complete: false, recommendations_presented: false, quote_decision: 'pending', cpa_summary_delivered: false, schema_version: 3, updated_at: new Date().toISOString()},
+    {id: 'demo-sam', client_name: 'Sam Roberts', source: 'Referral', received_at: new Date(now - 3 * 86400000).toISOString(), owner: 'Jeff', stage: 'quote_delivered', next_action: 'Follow up on quote questions', due_at: new Date(now - 2 * 3600000).toISOString(), quote_delivered_at: samDeliveredAt, cpa_discovery_complete: true, recommendations_presented: true, quote_decision: 'pending', cpa_summary_delivered: false, schema_version: 3, updated_at: new Date().toISOString()}
   ];
 }
 
 function normalisePipelineItem(item) {
-  if (!item || typeof item !== 'object' || !validFirstName(item.first_name) || !validDate(item.received_at)) return null;
+  const clientName = String(item?.client_name || item?.first_name || '').trim();
+  if (!item || typeof item !== 'object' || !validClientName(clientName) || !validDate(item.received_at)) return null;
   const stage = Object.hasOwn(PIPELINE_STAGES, item.stage) ? item.stage : 'new_received';
   const receivedAt = new Date(item.received_at).toISOString();
   const quoteDeliveredAt = validDate(item.quote_delivered_at) ? new Date(item.quote_delivered_at).toISOString() : null;
@@ -168,10 +173,10 @@ function normalisePipelineItem(item) {
   if (['quote_delivered', 'follow_up'].includes(stage)) dueAt = quoteDeliveredAt ? deadlineIso(quoteDeliveredAt, 48 * 60 * 60000) : null;
   return {
     id: String(item.id || `lead-${Date.now()}`),
-    first_name: String(item.first_name).trim(),
+    client_name: clientName,
     source: ['Phone', 'Website', 'Referral', 'Walk-in', 'Other'].includes(item.source) ? item.source : 'Other',
     received_at: receivedAt,
-    owner: String(item.owner || 'Unassigned').slice(0, 60),
+    owner: PIPELINE_OWNERS.includes(item.owner) ? item.owner : 'Unassigned',
     stage,
     next_action: String(item.next_action || '').slice(0, 140),
     due_at: dueAt,
@@ -180,7 +185,7 @@ function normalisePipelineItem(item) {
     recommendations_presented: recommendations,
     quote_decision: quoteDecision,
     cpa_summary_delivered: summaryDelivered,
-    schema_version: 2,
+    schema_version: 3,
     updated_at: validDate(item.updated_at) ? new Date(item.updated_at).toISOString() : new Date().toISOString()
   };
 }
@@ -212,6 +217,13 @@ function cpaProgress(item) {
   return {done: Math.min(done, total), total};
 }
 
+function cpaWorkflowStatus(item) {
+  if (item.quote_decision === 'accepted') return item.cpa_summary_delivered ? 'complete' : 'exception';
+  if (item.quote_decision === 'declined') return 'complete';
+  if (item.stage === 'resolved') return item.cpa_discovery_complete || item.recommendations_presented ? 'exception' : 'complete';
+  return pipelineStatus(item);
+}
+
 function renderPipeline() {
   const rank = {exception: 0, overdue: 1, open: 2, complete: 3};
   const items = pipelineItems().sort((a, b) => rank[pipelineStatus(a)] - rank[pipelineStatus(b)] || new Date(a.due_at) - new Date(b.due_at));
@@ -221,7 +233,7 @@ function renderPipeline() {
     const status = pipelineStatus(item);
     const progress = cpaProgress(item);
     return `<article class="pipeline-card ${status}">
-      <div class="pipeline-card-top"><div><h3>${esc(item.first_name)}</h3><span class="stage-pill">${esc(PIPELINE_STAGES[item.stage] || item.stage)}</span></div><span class="state-pill">${esc(status.toUpperCase())}</span></div>
+      <div class="pipeline-card-top"><div><h3>${esc(item.client_name)}</h3><span class="stage-pill">${esc(PIPELINE_STAGES[item.stage] || item.stage)}</span></div><span class="state-pill">${esc(status.toUpperCase())}</span></div>
       <p><b>Next:</b> ${esc(item.next_action)}<br><b>Due:</b> ${esc(fmtDate(item.due_at))}</p>
       <p class="pipeline-meta">${esc(item.source)} · ${esc(item.owner)} · received ${esc(fmtDate(item.received_at))}</p>
       <div class="cpa-progress"><span style="width:${progress.done / progress.total * 100}%"></span></div><small>CPA / quote milestones: ${progress.done} of ${progress.total}${item.quote_decision === 'declined' ? ' · declined' : ''}</small>
@@ -247,7 +259,7 @@ function editLead(id) {
   const item = pipelineItems().find(entry => entry.id === id);
   if (!item) return;
   const form = $('#lead-form');
-  ['lead_id', 'first_name', 'source', 'owner', 'stage', 'next_action'].forEach(key => { form.elements[key].value = key === 'lead_id' ? item.id : item[key]; });
+  ['lead_id', 'client_name', 'source', 'owner', 'stage', 'next_action'].forEach(key => { form.elements[key].value = key === 'lead_id' ? item.id : item[key]; });
   form.elements.quote_decision.value = item.quote_decision;
   form.elements.received_at.value = localDateTime(item.received_at);
   form.elements.quote_delivered_at.value = item.quote_delivered_at ? localDateTime(item.quote_delivered_at) : '';
@@ -255,7 +267,7 @@ function editLead(id) {
   form.elements.due_at.value = item.due_at ? localDateTime(item.due_at) : '';
   ['cpa_discovery_complete', 'recommendations_presented', 'cpa_summary_delivered'].forEach(key => { form.elements[key].checked = Boolean(item[key]); });
   enforceDueStandard(form);
-  $('#lead-message').textContent = `Editing ${item.first_name}.`;
+  $('#lead-message').textContent = `Editing ${item.client_name}.`;
   form.scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 
@@ -293,7 +305,7 @@ function saveLead(event) {
   const form = event.currentTarget;
   enforceDueStandard(form);
   const data = Object.fromEntries(new FormData(form));
-  data.first_name = String(data.first_name || '').trim();
+  data.client_name = String(data.client_name || '').trim();
   const milestones = ['cpa_discovery_complete', 'recommendations_presented', 'cpa_summary_delivered'];
   milestones.forEach(key => { data[key] = form.elements[key].checked; });
   const items = pipelineItems();
@@ -304,8 +316,12 @@ function saveLead(event) {
     data.quote_delivered_at = existingItem.quote_delivered_at;
     if (['quote_delivered', 'follow_up'].includes(data.stage)) data.due_at = deadlineIso(existingItem.quote_delivered_at, 48 * 60 * 60000);
   }
-  if (!validFirstName(data.first_name)) {
-    $('#lead-message').textContent = 'Use one first name only. Letters, apostrophes and hyphens are allowed.';
+  if (!validClientName(data.client_name)) {
+    $('#lead-message').textContent = 'Enter the client’s full name using letters, spaces, apostrophes, hyphens or periods.';
+    return;
+  }
+  if (!PIPELINE_OWNERS.includes(data.owner)) {
+    $('#lead-message').textContent = 'Choose an owner from the approved team list.';
     return;
   }
   if (!validDate(data.received_at) || !validDate(data.due_at)) {
@@ -443,9 +459,24 @@ function workStatus(item) {
   return 'open';
 }
 
+function renderCpaDrilldown() {
+  const rank = {exception: 0, overdue: 1, open: 2, complete: 3};
+  const items = pipelineItems().sort((a, b) => rank[cpaWorkflowStatus(a)] - rank[cpaWorkflowStatus(b)] || new Date(a.due_at || '9999-12-31') - new Date(b.due_at || '9999-12-31'));
+  const completed = items.filter(item => cpaWorkflowStatus(item) === 'complete').length;
+  const exceptions = items.filter(item => ['exception', 'overdue'].includes(cpaWorkflowStatus(item))).length;
+  $('#drill-summary').innerHTML = `<strong>${items.length} pipeline client(s).</strong> ${completed} CPA / quote workflow(s) complete and ${exceptions} needing attention. This view reads the browser-local Sales Pipeline; enter and edit CPA milestones there.`;
+  $('#drill-items').innerHTML = items.map(item => {
+    const status = cpaWorkflowStatus(item);
+    const progress = cpaProgress(item);
+    const milestone = value => value ? 'Complete' : 'Pending';
+    return `<article class="work-card ${status}"><div><h3>${esc(item.client_name)}</h3><p>${esc(PIPELINE_STAGES[item.stage])} · ${esc(status)}</p><p><b>CPA progress:</b> ${progress.done} of ${progress.total}</p></div><dl><dt>Owner</dt><dd>${esc(item.owner)}</dd><dt>Due</dt><dd>${esc(item.due_at ? fmtDate(item.due_at) : 'Missing — action required')}</dd></dl><dl><dt>Discovery</dt><dd>${milestone(item.cpa_discovery_complete)}</dd><dt>Recommendations</dt><dd>${milestone(item.recommendations_presented)}</dd></dl><dl><dt>Quote decision</dt><dd>${esc(item.quote_decision)}</dd><dt>CPA summary</dt><dd>${milestone(item.cpa_summary_delivered)}</dd></dl></article>`;
+  }).join('') || '<p>No Sales Pipeline clients are recorded in this browser.</p>';
+}
+
 async function loadDrilldown(metric = state.selectedMetric) {
   state.selectedMetric = metric;
   $$('#drill-tabs button').forEach(button => button.classList.toggle('active', button.dataset.metric === metric));
+  if (metric === 'pipeline_cpa') { renderCpaDrilldown(); return; }
   $('#drill-items').innerHTML = '<p>Loading work items…</p>';
   try {
     const data = await api(`/api/work-items?metric=${encodeURIComponent(metric)}`);
@@ -516,6 +547,7 @@ function init() {
   $('#tv-btn').addEventListener('click', () => window.open(`${location.pathname}?view=tv`, '_blank'));
   $('#closeout-form').addEventListener('submit', saveCloseout);
   $('#lead-form').addEventListener('submit', saveLead);
+  $('#open-cpa-drill').addEventListener('click', () => { state.selectedMetric = 'pipeline_cpa'; showView('drilldown'); });
   $('#lead-reset').addEventListener('click', resetLeadForm);
   $('#lead-form [name=stage]').addEventListener('change', updateLeadDueForStage);
   $('#lead-form [name=received_at]').addEventListener('change', () => { if ($('#lead-form [name=stage]').value === 'new_received') enforceDueStandard($('#lead-form')); });
